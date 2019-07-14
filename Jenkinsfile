@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn -DskipTests'
+                sh '-Dmaven.test.skip=true'
             }
             post {
                 always {
