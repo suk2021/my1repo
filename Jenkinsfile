@@ -13,18 +13,10 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '-Dmaven.test.skip=true'
+                sh 'mvn -Dmaven.test.skip=true'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+           
         }
-        stage('Deliver') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
+        
     }
 }
