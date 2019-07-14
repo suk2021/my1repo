@@ -1,6 +1,6 @@
 node {
     /* Requires the Docker Pipeline plugin to be installed */
-	docker.image('ubuntumaven:mvn3.6.0').inside {
+	docker.image('ubuntu:ans-2.5.01-anssshvim').inside {
     
     // Get Artifactory server instance, defined in the Artifactory Plugin administration page.
     def server = Artifactory.server "jfrog"
@@ -8,20 +8,8 @@ node {
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
 
-
-     stage('Artifactory configuration') {
-        // Tool name from Jenkins configuration
-        rtMaven.tool = "mvn"
-        // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-        rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-      }
     stage('Maven build') {
-	sh "mvn  clean compile"
-   
-    }
-  }
+	sh "mvn  clean compile Dmaven.test.skip=true -Dcheckstyle.skip=true -Dmaven.wagon.http.ssl.insecure=true DaltDeploymentRepository=snapshots::default::http://172.17.0.3:8080/artifactory/repository/libs-snapshots"
+    }    
+ }
 }
-
-   
-    
