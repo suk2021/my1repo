@@ -9,7 +9,7 @@ node {
     def buildInfo
 
     stage('Maven build') {
-	sh "mvn  clean compile
+	sh "mvn  clean compile"
     }
 
      stage('Artifactory configuration') {
