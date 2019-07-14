@@ -8,9 +8,6 @@ node {
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
 
-    stage('Maven build') {
-	sh "mvn  clean compile"
-    }
 
      stage('Artifactory configuration') {
         // Tool name from Jenkins configuration
@@ -18,6 +15,10 @@ node {
         // Set Artifactory repositories for dependencies resolution and artifacts deployment.
         rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
         rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
+      }
+    stage('Maven build') {
+	sh "mvn  clean compile"
+   
     }
   }
 }
