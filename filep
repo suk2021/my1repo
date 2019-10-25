@@ -16,7 +16,7 @@ parameters {
 }
 
 stages {
-    stage {
+    stage ('update'){
     	if ( "${params.update}" == "y") {
 	      currentBuild.result = 'ABORTED'
              error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
