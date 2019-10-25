@@ -53,9 +53,11 @@ stage('ipset-creation') {
 }//stage1
 
 stage('2') {
-   options {
+    options {
   checkoutToSubdirectory 'server'
-      sh "pwd; ls -ltrh" 
+      sh "pwd; ls -ltrh"
+
+}
    steps {
    
     echo "hello from stage2 $x,$y"
@@ -67,7 +69,7 @@ stage('2') {
 }
 }
 }//stages
-}
+
 
 
 
