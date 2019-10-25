@@ -9,19 +9,20 @@ pipeline {
 parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
-  choice choices: ['y', 'n'], description: '', name: 'update'
+  choice choices: ['y', 'n'], description: '', name: 'Invoke_Parameters'
   file description: '', name: 'app'
 
 
 }
 
 stages {
-    stage ('updatede'){
-    	if ( "${params.update}" == "y") {
-	      currentBuild.result = 'ABORTED'
-             error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
-	     }
-	    } 
+ stage('jenkins-update')
+                      {
+                                       if ("${params.Invoke_Parameters}" == "yes") {
+                                          currentBuild.result = 'ABORTED'
+                                         error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
+                          }
+                      } 
 
     stage ('clean ws') {
         steps {
