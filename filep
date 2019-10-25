@@ -18,11 +18,17 @@ parameters {
 stages {
  stage('jenkins-update')
                       {
+		       steps
+		        {
+			 script {
+			 
                                        if ("${params.Invoke_Parameters}" == "yes") {
                                           currentBuild.result = 'ABORTED'
                                          error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
                           }
                       } 
+		     }
+		   }  
 
     stage ('clean ws') {
         steps {
