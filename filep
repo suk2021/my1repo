@@ -16,6 +16,11 @@ parameters {
 }
 
 stages {
+  stage ('clean ws') {
+        steps {
+         cleanWs()
+    }
+    }    
  stage('jenkins-update')
                       {
 		       steps
@@ -30,11 +35,7 @@ stages {
 		     }
 		   }  
 
-    stage ('clean ws') {
-        steps {
-         cleanWs()
-    }
-    }    
+   
 stage('ipset-creation') {
 
  
