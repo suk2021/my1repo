@@ -9,7 +9,6 @@ pipeline {
 parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
-  file(description: '', name: 'test')    
 }
 
 stages {
