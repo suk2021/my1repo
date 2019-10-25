@@ -9,18 +9,27 @@ pipeline {
 parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
+  choice choices: ['y', 'n'], description: '', name: 'update'
   file description: '', name: 'app'
 
 
 }
 
 stages {
+    stage {
+    	if ( "${params.update}" == "y") {
+	      currentBuild.result = 'ABORTED'
+             error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
+	     }
+	    } 
+
     stage ('clean ws') {
         steps {
          cleanWs()
     }
     }    
 stage('ipset-creation') {
+
  
   parallel {
     
