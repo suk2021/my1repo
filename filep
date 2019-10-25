@@ -9,6 +9,9 @@ pipeline {
 parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
+  file description: '', name: 'app'
+
+
 }
 
 stages {
@@ -34,10 +37,10 @@ stage('ipset-creation') {
 
 stage('2') {
    steps {
-    sh 'mkdir app.tar'
-   sh "pwd;cp -v server/pom.xml app.tar"
-	 echo "hello from stage2 $x,$y"
-	 echo "hello from stage1 $y,$y"
+    sh 'mkdir app'
+    sh "pwd; ls -ltrh"
+    echo "hello from stage2 $x,$y"
+    echo "hello from stage1 $y,$y"
  }
   }
 }
