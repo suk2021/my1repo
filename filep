@@ -22,7 +22,7 @@ stages {
 		        {
 			 script {
 			 
-                                       if ("${params.Invoke_Parameters}" == "yes") {
+                                       if ("${params.Invoke_Parameters}" == "y") {
                                           currentBuild.result = 'ABORTED'
                                          error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
                           }
