@@ -10,7 +10,7 @@ parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
   choice choices: ['y', 'n'], description: '', name: 'Invoke_Parameters'
-  file description: '', name: 'server'
+  //file description: '', name: 'server'
 
 
 }
@@ -54,6 +54,7 @@ stage('ipset-creation') {
 stage('2') {
    steps {
     sh 'mkdir app'
+    sh "cp -rv app server"
     sh "pwd; ls -ltrh"
     echo "hello from stage2 $x,$y"
     echo "hello from stage1 $y,$y"
