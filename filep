@@ -10,7 +10,7 @@ parameters {
   string defaultValue: 'ram', description: '', name: 'name', trim: false
   choice choices: ['r', 'n'], description: '', name: 'sites'
   choice choices: ['y', 'n'], description: '', name: 'Invoke_Parameters'
-  file description: '', name: 'app'
+  file description: '', name: 'server'
 
 
 }
