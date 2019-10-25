@@ -53,11 +53,11 @@ stage('ipset-creation') {
 
 stage('2') {
    steps {
-    sh 'mkdir app'
-    sh "cp -rv app server"
+    dir ('server') {
     sh "pwd; ls -ltrh"
     echo "hello from stage2 $x,$y"
     echo "hello from stage1 $y,$y"
+ }
  }
   }
 }
