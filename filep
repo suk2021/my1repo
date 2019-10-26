@@ -61,12 +61,11 @@ stage('2') {
 }
 
 post {
-stage ('clean ws') {
-        steps {
-         cleanWs()
-    }
-    }    
-    }
+        always {
+            cleanWs()
+        }
+    }   
+    
 }//pipe
 
 
