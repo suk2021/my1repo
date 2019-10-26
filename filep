@@ -26,9 +26,9 @@ stages {
                                        if ("${params.Invoke_Parameters}" == "y") {
                                           currentBuild.result = 'ABORTED'
                                          error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
-                          }
-                      } 
-		     }
+                          }//script
+                      } //steps
+		     }//stage
 		   }  
 
    
@@ -53,12 +53,12 @@ stage('2') {
      sh "pwd; ls -ltrh"
      sh "cd server; ls -ltrh"
     echo "hello from stage2 $x,$y"
- }
- }
-  }
+ }//steps
+ }//stage
+  }//parallel
   
-}
-}
+}//main-stage
+}//stages
 
 post {
         always {
@@ -66,7 +66,7 @@ post {
         }
     }   
     
-}//pipe
+}//outside-stages-butinside-pipeline
 
 
 def f1() {
