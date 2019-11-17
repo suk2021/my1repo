@@ -1,0 +1,98 @@
+https://$VRA/catalog-service/api/consumer/entitledCatalogItems | python -m json.tool
+
+
+list avaible resources 
+Resource ID of the deployment
+
+curl --insecure -H "Accept: $ACCEPT" -H "Authorization: $AUTH" https://$VRA/catalog-service/api/consumer/resources | python -m json.tool
+
+get action id on resources---take acc. like shutdown,destroy,change leaseime
+
+curl --insecure -H "Accept: $ACCEPT" -H "Authorization: $AUTH" https://$VRA/catalog-service/api/consumer/resources/Resource ID/actions | python -m json.tool
+
+request for the respective template like destroy,shutdown
+
+curl --insecure -H "Accept: $ACCEPT" -H "Authorization: $AUTH" https://$VRA/catalog-service/api/consumer/resources/Resource ID/actions/action id /requests/template | python -m json.tool > /tmp/DestroyCentOS7.json
+
+send request to vra as per req
+
+curl --insecure -H "Accept: $ACCEPT" -H "Authorization: $AUTH" https://$VRA/catalog-service/api/consumer/resources/Resource ID/actions/action id/requests --data @/tmp/DestroyCentos7.json --verbose -H "Content-Type: application/json" | python -m json.tool
+
+
+
+******************
+curl --insecure -H "Content-Type: application/json" 
+-H "Authorization: Bearer $token”  https://$vRA/catalog-service/api/consumer/entitledCatalogItemViews?$filter=name+eq+%27$catalogItemName%27
+
+
+
+
+Authenticating with the vRA API
+
+https://{{vra-fqdn}}/identity/api/tokens
+
+Finding the Blueprint’s Custom Property for which
+Query the resource and filter by the resource by the deployment-name - “CentOS6-ExternalNetwork-58506054”
+
+https://{{vra-fqdn}}/catalog-service/api/consumer/resources?$filter=name eq ‘CentOS6-ExternalNetwork-58506054’
+
+
+Grab the resource ID and query the form:
+
+https://{{vra-fqdn}}/catalog-service/api/consumer/resources/d4692cad-7fd3-4242-8472-6ed4359141bf/form
+
+
+
+Finding the Virtual Machine’s Custom Property
+https://{{vra-fqdn}}/catalog-service/api/consumer/resources?$filter=name eq ‘lab00143’
+
+f	ind and grab the providerBinding.bindingId, and query the IaaS server (using NTLM authentication) to retrieve the VirtualMachineProperties.
+
+https://{{vra-iaas}}/repository/Data/ManagementModelEntities.svc/VirtualMachines(guid’76e88125-8c81-4de0-82d9-f3e6f41f9531′)/VirtualMachineProperties
+
+
+##################################################################
+name": "Get resources for given deployment"
+
+"url": "https://{{va-fqdn}}/catalog-service/api/consumer/resources?$filter=parentResource/id eq {{deployment-resource-guid}}'",
+
+
+Retrieves the complete list of available operations that can be performed on a given resource.",
+https://{{va-fqdn}}/catalog-service/api/consumer/resources/{{resource-guid}}/actions
+
+
+
+
+"description": "Get all ConsumerEntitledCatalogItem for the current user.ConsumerEntitledCatalogItem are basically catalog items: - in an active state. - the current user has the right to consume. - the current user is entitled to consume. - associated to a service.",
+
+https://{{va-fqdn}}/catalog-service/api/consumer/entitledCatalogItems
+
+
+
+Get a  specific consumer entitled catalog item"
+
+https://{{va-fqdn}}/catalog-service/api/consumer/entitledCatalogItems/{{consumer-catalog-item-guid}}
+
+Submit a hardware reconfigure request
+
+url": "https://{{va-fqdn}}/catalog-service/api/consumer/resources/{{resource-guid}}/actions/{{resource-action-guid}}/requests,
+
+
+
+Get blueprint request for catalog request
+https://{{va-fqdn}}/composition-service/api/requests/external/{{catalog-request-guid}}/info
+Get blueprint request status for components
+url": "https://{{va-fqdn}}/composition-service/api/requests/{{blueprint-request-guid}}/status
+
+
+Get all failed catalog requests for the tenant
+
+https://{{va-fqdn}}/catalog-service/api/consumer/requests?page={{page}}&limit={{limit}}&$filter=organization/tenant eq '{{tenant}}' and requestCompletion/requestCompletionState eq 'FAILED',
+
+
+
+Submit resource action:
+
+
+https://{{va-fqdn}}/catalog-service/api/consumer/resources/{{resource-guid}}/actions/{{resource-action-guid}}/requests
+
