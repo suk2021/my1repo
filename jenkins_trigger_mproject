@@ -1,0 +1,82 @@
+pipeline {
+      
+
+ agent any
+  environment {
+	  x = "11"
+	  y = "24"
+}
+parameters {
+  string defaultValue: 'ram', description: '', name: 'name', trim: false
+  choice choices: ['r', 'n'], description: '', name: 'sites'
+  choice choices: ['y', 'n'], description: '', name: 'Invoke_Parameters'
+  //file description: '', name: 'server'
+
+
+}
+
+stages {
+  
+ stage('jenkins-update')
+                      {
+		       steps
+		        {
+			 script {
+			 
+                                       if ("${params.Invoke_Parameters}" == "y") {
+                                          currentBuild.result = 'ABORTED'
+                                         error('DRY RUN COMPLETED. JOB PARAMETERIZED.')
+                          }//script
+                      } //steps
+		     }//stage
+		   }  
+
+   
+stage('ipset-creation') {
+
+ 
+  parallel {
+    
+ stage('1') {
+    steps {
+               f1()
+     script {
+        for (n in ["TXN", "WEB"]) {
+	  echo "hello from stage1 $n"
+ }//for
+}//script
+}//step
+}//stage1
+
+stage('2') {
+    steps {
+     sh "pwd; ls -ltrh"
+     sh "cd server; ls -ltrh"
+    echo "hello from stage2 $x,$y"
+ }//steps
+ }//stage
+  }//parallel
+  
+}//main-stage
+
+stage('dp2 project') {
+
+ build job: 'dp2', parameters: [string(name: 'name', value: 'ram'), string(name: 'sites', value: 'r')], quietPeriod: 5
+}
+}//stages
+
+post {
+        always {
+            cleanWs()
+        }
+    }   
+    
+}//outside-stages-butinside-pipeline
+
+
+
+def f1() {
+script { 
+ echo 'from f1'
+}
+}
